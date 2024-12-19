@@ -210,7 +210,7 @@ export const execute = async (client, interaction) => {
             const supportChannel = interaction.guild.channels.cache.get('1231713816966856875'); // Change with actual support channel ID
             const supportEmbed = new EmbedBuilder()
                 .setTitle('Ticket Closed')
-                .setDescription(`Ticket #${ticketNumber} has been closed by ${user.tag}.`)
+                .setDescription(`Ticket #${ticketNumber} has been closed by ${user}.`)
                 .setTimestamp()
                 .setColor('Green');
 
