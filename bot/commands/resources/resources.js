@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle, ModalBuilder, PermissionFlagsBits } from 'discord.js';
 import Resources from '../../../models/Resources.js';
-
-
+import base64 from "base64-encode";
+import axios from "axios";
 export const data = new SlashCommandBuilder()
     .setName('resource')
     .setDescription('Manage resources')
@@ -105,13 +105,31 @@ export const execute = async (interaction) => {
         const platform1 = interaction.options.getString('builtbybit');
         const platform2 = interaction.options.getString('spigot');
 
+        let coverBase64;
+        if (cover) {
+            try {
+                // Descargar el archivo como un Buffer
+                const response = await axios.get(cover.url, { responseType: 'arraybuffer' });
+                const coverBuffer = Buffer.from(response.data);
+            
+                // Convertir el Buffer a Base64
+                coverBase64 = coverBuffer.toString('base64');
+            
+            } catch (error) {
+                console.error('Error converting attachment to Base64:', error);
+                await interaction.reply({ content: 'Failed to process the attachment.', ephemeral: true });
+            }
+        }
+        
+        
         const resource = new Resources({
             name,
             description,
             author: author.id,
             type,
             price,
-            platforms: [platform1, platform2]
+            platforms: [platform1, platform2],
+            image: coverBase64,
         })
 
         const embed = new EmbedBuilder()
@@ -139,7 +157,7 @@ export const execute = async (interaction) => {
         
         await resource.save();
         const channel = interaction.guild.channels.cache.get('1292523403290480691')
-        if(channel) {
+        if(true) {
             await interaction.reply({ embeds: [embed], ephemeral: true });
             return await channel.send({ embeds: [embed] })
         }
