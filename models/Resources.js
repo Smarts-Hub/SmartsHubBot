@@ -8,6 +8,7 @@ const schema = mongoose.Schema({
     price: { type: String, required: true },
     platforms: [{ type: String }],
     version: { type: String, required: true, default: '1.0.0' },
+    image: { type: String, default: 'https://placehold.co/1080x1920?text=Not_Found_404'}
 }) 
 
 export default mongoose.model('Resource', schema);
