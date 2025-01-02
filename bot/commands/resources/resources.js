@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle, ModalBuilder, PermissionFlagsBits } from 'discord.js';
 import Resources from '../../../models/Resources.js';
-import base64 from "base64-encode";
 import axios from "axios";
 export const data = new SlashCommandBuilder()
     .setName('resource')
