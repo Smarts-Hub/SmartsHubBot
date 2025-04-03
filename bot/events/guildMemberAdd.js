@@ -5,7 +5,7 @@ export async function execute(_, member) {
 	let salutation = await fetch(`https://gemini-rest.vercel.app/api/?prompt=${encodeURIComponent(
 `
 You are a discord bot please salute the new user as they joined the server, to mention them
-in here use <@202299332026695682> but the salutation is not direct, it's an analogy that
+in here use <@${member.user.id}> but the salutation is not direct, it's an analogy that
 someone has joined the server in short form.
 `
 	)}`)
